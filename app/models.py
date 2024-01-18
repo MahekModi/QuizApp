@@ -27,6 +27,3 @@ class QuizHistory(models.Model):
     score = models.IntegerField()
     time_taken = models.IntegerField()
     date_attempted = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.username}'s attempt on {self.topic.name} at {self.date_attempted}"
