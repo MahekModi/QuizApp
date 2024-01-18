@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <h1>Welcome to Quiz</h1>
+
+        <div align="right" id="displaytimer"><b>Timer: 0 seconds</b></div>
+
+        <form method='post' action='{% url "result" %}'>
+            {% csrf_token %}
+            <input type="hidden" name="topic" value="{{ topic_id }}">
+            <input type="hidden" name="start_time" id="start_time" value="">
+
+            {% for q in questions %}
+            <div class="form-group">
+                <label for="question">{{ q.question }}</label>
+            </div>
+            <div class="form-check">
+                {% for option in q.options %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ q.id }}" id="{{ q.id }}_{{ option }}" value="{{ option }}">
+                        <label class="form-check-label" for="{{ q.id }}_{{ option }}">
+                            {{ option }}
+                        </label>
+                    </div>
+                {% endfor %}
+                <br>
+            </div>
+            {% endfor %}
+            <input id='timer' type='hidden' name="timer" value="">
+            <input type='hidden' name="elapsed_time" id="elapsed_time" value="">
+
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% block script %}
+        <script>
+            console.log('hello world')
+            const timerDisplay = document.getElementById('displaytimer')
+            const timerInput = document.getElementById('timer')
+            const startTimeInput = document.getElementById('start_time')
+            const elapsedTimeInput = document.getElementById('elapsed_time')
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const startTime = new Date().getTime();
+                startTimeInput.value = startTime;
+            });
+
+            function updateTimer() {
+                const currentTime = new Date().getTime();
+                const elapsedTime = Math.floor((currentTime - parseInt(startTimeInput.value)) / 1000);
+                timerDisplay.innerHTML = "<b>Timer: " + elapsedTime + " seconds</b>";
+                timerInput.value = elapsedTime;
+                elapsedTimeInput.value = elapsedTime;  
+            }
+
+            setInterval(updateTimer, 1000);
+        </script>
+        {% endblock script %}
+    </div>
+{% endblock %} 

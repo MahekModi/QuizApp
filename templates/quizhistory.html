@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Quiz History</h1>
+        {% if quiz_attempts %}
+            <ul>
+                {% for attempt in quiz_attempts %}
+                    <li>{{ attempt.date_attempted }} - {{ attempt.topic.name }}: Score - {{ attempt.score }}, Time Taken - {{ attempt.time_taken }} seconds</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No quiz attempts yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

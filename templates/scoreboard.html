@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Scoreboard</h1>
+        {% if scoreboard_data %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Total Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in scoreboard_data %}
+                        <tr>
+                            <td>{{ entry.user__username }}</td>
+                            <td>{{ entry.total_score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No data.</p>
+        {% endif %}
+    </div>
+{% endblock %}

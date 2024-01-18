@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Quiz Result</h1>
+        <p>Score: {{ score }}</p>
+        <p>Time Taken: {{ time_taken }} seconds</p>
+        <p>Correct Answers: {{ correct_ans }}</p>
+        <p>Incorrect Answers: {{ incorrect_ans }}</p>
+        <p>Total Questions: {{ total }}</p>
+        <p>Hope you had fun!</p>
+    </div>
+{% endblock %}

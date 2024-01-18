@@ -1,0 +1,9 @@
+Quiz App
+
+In this project, you will design a quiz app using Django. It will include standard features like time taken to solve quiz, quiz history, scoreboard, and so on. 
+- Features to be added 
+	- user registration and login.
+	- User can select intrested topic for quiz, question will be given for selected catagories only.
+	- Time taken to complete Quiz.
+	- result after completion of quiz.
+- question and their option should suffle every time.
