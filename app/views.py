@@ -10,12 +10,9 @@ def home(request):
         selected_topic_id = request.POST.get('topic')
         questions = list(Question.objects.filter(topic_id=selected_topic_id))
         shuffle(questions)
-        total = 0
 
         for q in questions:
-            total += 1
             options = [q.option1, q.option2, q.option3, q.option4]
-            
             shuffle(options)
 
             q.options = options
@@ -26,13 +23,11 @@ def home(request):
         return render(request, 'home.html', context)
     else:
         topics = QuizTopic.objects.all()
-        context = {'topics': topics}
-        return render(request, 'quiz_selection.html', context)
+        return render(request, 'quiz_selection.html', {'topics': topics})
     
 def quiz_history(request):
     if request.user.is_authenticated:
-        quiz_attempts = QuizHistory.objects.filter(user=request.user)
-        return render(request, 'quizhistory.html', {'quiz_attempts': quiz_attempts})
+        return render(request, 'quizhistory.html', {'quiz_attempts': QuizHistory.objects.filter(user=request.user)})
     else:
         return redirect('home') 
     
@@ -46,8 +41,7 @@ def scoreboard(request):
     return render(request, 'scoreboard.html', {'scoreboard_data': scoreboard_data})
 
 def quiz_selection(request):
-    topics = QuizTopic.objects.all()
-    return render(request, 'quiz_selection.html', {'topics': topics})
+    return render(request, 'quiz_selection.html', {'topics': QuizTopic.objects.all()})
 
 # only admin or whoever has is_staff=true can add question from frontend
 def addQue(request):
@@ -58,8 +52,7 @@ def addQue(request):
             if form.is_valid():
                 form.save()
                 return redirect('/')
-        context = {'form': form}
-        return render(request, 'addque.html', context)
+        return render(request, 'addque.html', {'form': form})
     else:
         return redirect('home')
 
@@ -113,8 +106,7 @@ def register(request):
             if form.is_valid():
                 user = form.save()
                 return redirect('login')
-        context = {'form': form}
-        return render(request, 'register.html', context)
+        return render(request, 'register.html', {'form': form})
 
 def user_login(request, user=None):
     if request.user.is_authenticated:
