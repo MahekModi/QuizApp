@@ -8,6 +8,7 @@ from django.db.models import Sum
 def home(request):
     if request.method == 'POST':
         selected_topic_id = request.POST.get('topic')
+        selected_topic = QuizTopic.objects.get(pk=selected_topic_id)
         questions = list(Question.objects.filter(topic_id=selected_topic_id))
         shuffle(questions)
 
@@ -16,9 +17,11 @@ def home(request):
             shuffle(options)
 
             q.options = options
+
         context = {
             'questions': questions,
             'topic_id': selected_topic_id,
+            'selected_topic': selected_topic
         }
         return render(request, 'home.html', context)
     else:
