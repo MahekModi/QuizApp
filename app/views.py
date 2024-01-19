@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import createuserform, addQuesform
 from random import shuffle
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     if request.method == 'POST':
@@ -27,12 +28,10 @@ def home(request):
     else:
         topics = QuizTopic.objects.all()
         return render(request, 'quiz_selection.html', {'topics': topics})
-    
+
+@login_required 
 def quiz_history(request):
-    if request.user.is_authenticated:
         return render(request, 'quizhistory.html', {'quiz_attempts': QuizHistory.objects.filter(user=request.user)})
-    else:
-        return redirect('home') 
     
 def scoreboard(request):
     scoreboard_data = (
