@@ -3,7 +3,7 @@
 {% block content %}
     {% load static %}
     <div class="container">
-        <h1>Welcome to Quiz</h1>
+        <h1>Welcome to {{selected_topic.name}} Quiz</h1>
 
         <div align="right" id="displaytimer"><b>Timer: 0 seconds</b></div>
 
@@ -37,7 +37,6 @@
 
         {% block script %}
         <script>
-            console.log('hello world')
             const timerDisplay = document.getElementById('displaytimer')
             const timerInput = document.getElementById('timer')
             const startTimeInput = document.getElementById('start_time')
